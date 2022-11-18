@@ -13,4 +13,25 @@ spec:
         kind: HelmRepository
         name: my-repository
         namespace: default
+      values:
+        opcua:
+          discovery.enabled: true
+          configuration:
+            enabled: true 
+            name: akri-monitor 
+            brokerPod.image.repository: "ghcr.io/project-akri/akri/opcua-monitoring-broker"
+            brokerProperties.IDENTIFIER: 'Thermometer_Temperature'
+            brokerProperties.NAMESPACE_INDEX: '2'
+            discoveryDetails.discoveryUrls[0]: "opc.tcp://10.0.8.51:62541"
   interval: 30m
+
+
+  helm install akri akri-helm-charts/akri \
+ $AKRI_HELM_CRICTL_CONFIGURATION \
+ --set opcua.discovery.enabled=true \
+ --set opcua.configuration.enabled=true \
+ --set opcua.configuration.name=akri-monitor \
+ --set opcua.configuration.brokerPod.image.repository="ghcr.io/project-akri/akri/opcua-monitoring-broker" \
+ --set opcua.configuration.brokerProperties.IDENTIFIER='Thermometer_Temperature' \
+ --set opcua.configuration.brokerProperties.NAMESPACE_INDEX='2' \
+ --set opcua.configuration.discoveryDetails.discoveryUrls[0]="opc.tcp://10.0.8.51:62541" 

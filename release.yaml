@@ -1,0 +1,16 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: akri-helmrelease
+  namespace: default
+spec:
+  releaseName: akri-dev
+  chart:
+    spec:
+      chart: akri 
+      version: akri-0.8.23 # or arm64
+      sourceRef:
+        kind: HelmRepository
+        name: my-repository
+        namespace: default
+  interval: 30m

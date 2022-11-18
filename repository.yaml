@@ -1,0 +1,10 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: my-repository
+  namespace: default
+spec:
+  # The interval at which to check the upstream for updates
+  interval: 1m
+  # The repository URL, can be a HTTP/S or SSH address
+  url: https://project-akri.github.io/akri/
